@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>bulk RNA-seq workflow and record | biolilsheep&#39;s travel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="转录组分析全流程（上）前言根据本人课题所所用到的转录组分析流程做一个较为完整的记录与分享。全流程整体分为上游+下游两个部分 整体分析思路开始流程02 比对(alignment)代码 1xiejy@guanine:~$ nohup hisat2 -p 1 -x &#x2F;home&#x2F;xiejy&#x2F;project&#x2F;NSCPRO&#x2F;alignment&#x2F;index&#x2F;hisat2_index&#x2F;mm10&#x2F;genome -1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bulk RNA-seq workflow and record">
+<meta property="og:url" content="http://example.com/2022/05/15/bulk-RNA-seq-workflow-and-record/index.html">
+<meta property="og:site_name" content="biolilsheep&#39;s travel">
+<meta property="og:description" content="转录组分析全流程（上）前言根据本人课题所所用到的转录组分析流程做一个较为完整的记录与分享。全流程整体分为上游+下游两个部分 整体分析思路开始流程02 比对(alignment)代码 1xiejy@guanine:~$ nohup hisat2 -p 1 -x &#x2F;home&#x2F;xiejy&#x2F;project&#x2F;NSCPRO&#x2F;alignment&#x2F;index&#x2F;hisat2_index&#x2F;mm10&#x2F;genome -1">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-15T14:57:51.000Z">
+<meta property="article:modified_time" content="2022-06-01T06:35:20.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="biolilsheep's travel" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">biolilsheep&#39;s travel</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-bulk-RNA-seq-workflow-and-record" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/05/15/bulk-RNA-seq-workflow-and-record/" class="article-date">
+  <time class="dt-published" datetime="2022-05-15T14:57:51.000Z" itemprop="datePublished">2022-05-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      bulk RNA-seq workflow and record
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="转录组分析全流程（上）"><a href="#转录组分析全流程（上）" class="headerlink" title="转录组分析全流程（上）"></a>转录组分析全流程（上）</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>根据本人课题所所用到的转录组分析流程做一个较为完整的记录与分享。全流程整体分为上游+下游两个部分</p>
+<h4 id="整体分析思路"><a href="#整体分析思路" class="headerlink" title="整体分析思路"></a>整体分析思路</h4><h4 id="开始流程"><a href="#开始流程" class="headerlink" title="开始流程"></a>开始流程</h4><h5 id="02-比对-alignment"><a href="#02-比对-alignment" class="headerlink" title="02 比对(alignment)"></a>02 比对(alignment)</h5><p>代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xiejy@guanine:~$ <span class="built_in">nohup</span> hisat2 -p 1 -x /home/xiejy/project/NSCPRO/alignment/index/hisat2_index/mm10/genome -1 /home/xiejy/project/NSCPRO/clean/E13_5/p0/E13-5-P0C2_L4_382X82.R1_val_1.fq.gz -2 /home/xiejy/project/NSCPRO/clean/E13_5/p0/E13-5-P0C2_L4_382X82.R2_val_2.fq.gz -S E13-5-P0C2_L4_382X82 &amp;</span><br></pre></td></tr></table></figure>
+
+<h5 id="03-排序-sort"><a href="#03-排序-sort" class="headerlink" title="03 排序(sort)"></a>03 排序(sort)</h5><p>代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(RNA-seq3) xiejy@guanine:~/project/NSCPRO/alignment/E11_5/p3$ <span class="built_in">ls</span> *.sam | <span class="keyword">while</span> <span class="built_in">read</span> <span class="built_in">id</span> </span><br><span class="line"><span class="keyword">do</span> </span><br><span class="line">name=$(<span class="built_in">basename</span> <span class="variable">$id</span> .sam)</span><br><span class="line">samtools view -S <span class="variable">$&#123;name&#125;</span>.sam -b &gt;  <span class="variable">$name</span>.bam</span><br><span class="line">samtools <span class="built_in">sort</span> <span class="variable">$&#123;name&#125;</span>.bam -o <span class="variable">$&#123;name&#125;</span>_sorted.bam</span><br><span class="line">Samtools index <span class="variable">$&#123;name&#125;</span>_sorted.bam</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>出现以下提示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(RNA-seq3) xiejy@guanine:~/project/NSCPRO/alignment/E11_5/p3$ [bam_sort_core] merging from 24 files and 1 in-memory blocks...</span><br><span class="line">[bam_sort_core] merging from 26 files and 1 in-memory blocks...</span><br><span class="line">[bam_sort_core] merging from 26 files and 1 in-memory blocks...</span><br><span class="line">[bam_sort_core] merging from 23 files and 1 in-memory blocks...</span><br><span class="line">[bam_sort_core] merging from 21 files and 1 in-memory blocks...</span><br><span class="line">[bam_sort_core] merging from 25 files and 1 in-memory blocks...</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/05/15/bulk-RNA-seq-workflow-and-record/" data-id="clbc9mena00027wv465b4fcpg" data-title="bulk RNA-seq workflow and record" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          R 中的基础函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/05/06/DEseq2%E5%8C%85%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">(DEseq2包使用)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%AA%E4%BA%BA%E9%9A%8F%E7%AC%94/">个人随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A5%94%E5%AD%90/" rel="tag">楔子</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a> <a href="/tags/%E6%A5%94%E5%AD%90/" style="font-size: 10px;">楔子</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/06/a-test-of-new/">a test of new</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/01/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/">R 中的基础函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/15/bulk-RNA-seq-workflow-and-record/">bulk RNA-seq workflow and record</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/06/DEseq2%E5%8C%85%E4%BD%BF%E7%94%A8/">(DEseq2包使用)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

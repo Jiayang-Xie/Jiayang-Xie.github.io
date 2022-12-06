@@ -4,13 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>biolilsheep&#39;s travel</title>
+  <title>(DEseq2包使用) | biolilsheep&#39;s travel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="biolilsheep&#39;s travel">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="DEseq2 包使用R中 DEseq2包是用来进行差异表达的一个主流的工具，下面是本人使用过程中的一些心得与笔记 1 基础应用——以结果为导向的快捷使用前期我花了大量时间去学习DEseq2，从最基础的原理到各个函数参数的使用与意义。这虽然让我更了解了其使用方法，但因为DEseq2的结果对我的分析来说只是中间的一个过渡，因此精力反而显得浪费。为此，我先总结一个快速的使用方法。 代码 12345678">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(DEseq2包使用)">
+<meta property="og:url" content="http://example.com/2022/05/06/DEseq2%E5%8C%85%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="biolilsheep&#39;s travel">
+<meta property="og:description" content="DEseq2 包使用R中 DEseq2包是用来进行差异表达的一个主流的工具，下面是本人使用过程中的一些心得与笔记 1 基础应用——以结果为导向的快捷使用前期我花了大量时间去学习DEseq2，从最基础的原理到各个函数参数的使用与意义。这虽然让我更了解了其使用方法，但因为DEseq2的结果对我的分析来说只是中间的一个过渡，因此精力反而显得浪费。为此，我先总结一个快速的使用方法。 代码 12345678">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-06T03:12:22.000Z">
+<meta property="article:modified_time" content="2022-06-01T06:35:20.000Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -69,206 +73,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-a-test-of-new" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/12/06/a-test-of-new/" class="article-date">
-  <time class="dt-published" datetime="2022-12-06T13:31:03.000Z" itemprop="datePublished">2022-12-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/12/06/a-test-of-new/">a test of new</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/12/06/a-test-of-new/" data-id="clbc9menb00037wv4fije5zhy" data-title="a test of new" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/12/01/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2022-12-01T06:25:43.854Z" itemprop="datePublished">2022-12-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/12/01/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/12/01/hello-world/" data-id="clb4xr4de0000xwv4bg0i98k2" data-title="Hello World" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-R-中的基础函数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" class="article-date">
-  <time class="dt-published" datetime="2022-05-17T02:23:38.000Z" itemprop="datePublished">2022-05-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/">R 中的基础函数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="R中的基础函数"><a href="#R中的基础函数" class="headerlink" title="R中的基础函数"></a>R中的基础函数</h3><p>因为我的学习是以课题为轴进行学习的，相应的R虽有系统的粗学过，但只有粗略印象。<br>因此开这个帖子记录我学习过程中所遇到的零散的R基础函数。而关于专门的功能实现，会开转贴进行记录。</p>
-<h4 id="0-paste-x2F-paste0"><a href="#0-paste-x2F-paste0" class="headerlink" title="0 paste&#x2F;paste0"></a>0 paste&#x2F;paste0</h4><ul>
-<li><p>参考连接<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/cunchi4221/article/details/107470963">r语言中paste函数_R中的paste（）函数-简要指南</a><br><a target="_blank" rel="noopener" href="https://search.r-project.org/R/refmans/base/html/paste.html">官方文档</a><br><a target="_blank" rel="noopener" href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/paste">Rdocumentation(更好阅读但R版本止于3.6.2)</a></p>
-</li>
-<li><p>说明<br><strong>paste()</strong>: Takes multiple elements from the multiple vectors and concatenates them into a single element.<br>__paste()__：从多个向量中获取多个元素，并将它们连接为一个元素<br><strong>paste0()</strong>: The paste0() function has space as its default separator and limits your opportunities in the output as well.<br>__paste0()__： paste0（）函数使用空格作为其默认分隔符。</p>
-</li>
-<li><p>语法</p>
-</li>
-</ul>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">paste<span class="punctuation">(</span>x<span class="punctuation">,</span>sep<span class="operator">=</span><span class="string">&quot; &quot;</span><span class="punctuation">,</span>collapse<span class="operator">=</span><span class="literal">NULL</span><span class="punctuation">)</span></span><br><span class="line">paste0<span class="punctuation">(</span>x<span class="punctuation">,</span>collapse<span class="operator">=</span><span class="literal">NULL</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-
-<p>x &#x3D; vector having values.<br>x &#x3D; 具有值的向量。</p>
-<p>sep &#x3D; separator symbols that can be used to separate the elements.<br>sep &#x3D;可用于分隔元素的分隔符。paste中默认为空格，paste0中为空字符，sep &#x3D;””</p>
-<p>collapse &#x3D; It gives a value to collapse.<br>The separator will deal with the values which are to be placed in between the set of elements and the collapse argument will make use of specific value to concatenate the elements into single -string.</p>
-<p><strong>总结， sep处理将要放置在元素集之间的值，而collapse将使用特定值将元素连接为单个字符串。</strong></p>
-<h4 id="1-with-x2F-within-x2F-transform"><a href="#1-with-x2F-within-x2F-transform" class="headerlink" title="1 with&#x2F;within&#x2F;transform"></a>1 with&#x2F;within&#x2F;transform</h4><ul>
-<li><p>参考链接<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25847796">【R语言】：transform函数与with&#x2F;within函数</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/ZY_Jack/article/details/103166058">R 中的with() 函数和 by()函数 的简单使用</a><br><a target="_blank" rel="noopener" href="https://search.r-project.org/R/refmans/base/html/with.html">官方文档 with&#x2F;within</a><br><a target="_blank" rel="noopener" href="https://search.r-project.org/R/refmans/base/html/transform.html">官方文档 transform</a></p>
-</li>
-<li><p>with</p>
-<ul>
-<li>说明</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" data-id="clbc9men800017wv474q8f2g4" data-title="R 中的基础函数" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-bulk-RNA-seq-workflow-and-record" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/05/15/bulk-RNA-seq-workflow-and-record/" class="article-date">
-  <time class="dt-published" datetime="2022-05-15T14:57:51.000Z" itemprop="datePublished">2022-05-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/05/15/bulk-RNA-seq-workflow-and-record/">bulk RNA-seq workflow and record</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="转录组分析全流程（上）"><a href="#转录组分析全流程（上）" class="headerlink" title="转录组分析全流程（上）"></a>转录组分析全流程（上）</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>根据本人课题所所用到的转录组分析流程做一个较为完整的记录与分享。全流程整体分为上游+下游两个部分</p>
-<h4 id="整体分析思路"><a href="#整体分析思路" class="headerlink" title="整体分析思路"></a>整体分析思路</h4><h4 id="开始流程"><a href="#开始流程" class="headerlink" title="开始流程"></a>开始流程</h4><h5 id="02-比对-alignment"><a href="#02-比对-alignment" class="headerlink" title="02 比对(alignment)"></a>02 比对(alignment)</h5><p>代码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xiejy@guanine:~$ <span class="built_in">nohup</span> hisat2 -p 1 -x /home/xiejy/project/NSCPRO/alignment/index/hisat2_index/mm10/genome -1 /home/xiejy/project/NSCPRO/clean/E13_5/p0/E13-5-P0C2_L4_382X82.R1_val_1.fq.gz -2 /home/xiejy/project/NSCPRO/clean/E13_5/p0/E13-5-P0C2_L4_382X82.R2_val_2.fq.gz -S E13-5-P0C2_L4_382X82 &amp;</span><br></pre></td></tr></table></figure>
-
-<h5 id="03-排序-sort"><a href="#03-排序-sort" class="headerlink" title="03 排序(sort)"></a>03 排序(sort)</h5><p>代码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(RNA-seq3) xiejy@guanine:~/project/NSCPRO/alignment/E11_5/p3$ <span class="built_in">ls</span> *.sam | <span class="keyword">while</span> <span class="built_in">read</span> <span class="built_in">id</span> </span><br><span class="line"><span class="keyword">do</span> </span><br><span class="line">name=$(<span class="built_in">basename</span> <span class="variable">$id</span> .sam)</span><br><span class="line">samtools view -S <span class="variable">$&#123;name&#125;</span>.sam -b &gt;  <span class="variable">$name</span>.bam</span><br><span class="line">samtools <span class="built_in">sort</span> <span class="variable">$&#123;name&#125;</span>.bam -o <span class="variable">$&#123;name&#125;</span>_sorted.bam</span><br><span class="line">Samtools index <span class="variable">$&#123;name&#125;</span>_sorted.bam</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
-<p>出现以下提示</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(RNA-seq3) xiejy@guanine:~/project/NSCPRO/alignment/E11_5/p3$ [bam_sort_core] merging from 24 files and 1 in-memory blocks...</span><br><span class="line">[bam_sort_core] merging from 26 files and 1 in-memory blocks...</span><br><span class="line">[bam_sort_core] merging from 26 files and 1 in-memory blocks...</span><br><span class="line">[bam_sort_core] merging from 23 files and 1 in-memory blocks...</span><br><span class="line">[bam_sort_core] merging from 21 files and 1 in-memory blocks...</span><br><span class="line">[bam_sort_core] merging from 25 files and 1 in-memory blocks...</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/05/15/bulk-RNA-seq-workflow-and-record/" data-id="clbc9mena00027wv465b4fcpg" data-title="bulk RNA-seq workflow and record" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="arcticle-DEseq2包使用" class="h-entry article article-type-arcticle" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="arcticle-DEseq2包使用" class="h-entry article article-type-arcticle" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/05/06/DEseq2%E5%8C%85%E4%BD%BF%E7%94%A8/" class="article-date">
   <time class="dt-published" datetime="2022-05-06T03:12:22.000Z" itemprop="datePublished">2022-05-06</time>
@@ -281,8 +86,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/05/06/DEseq2%E5%8C%85%E4%BD%BF%E7%94%A8/">(DEseq2包使用)</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      (DEseq2包使用)
     </h1>
   
 
@@ -304,126 +109,28 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="article-linux中shell脚本中的文件名处理" class="h-entry article article-type-article" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/04/25/linux%E4%B8%ADshell%E8%84%9A%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%90%8D%E5%A4%84%E7%90%86/" class="article-date">
-  <time class="dt-published" datetime="2022-04-25T15:35:31.000Z" itemprop="datePublished">2022-04-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2022/05/15/bulk-RNA-seq-workflow-and-record/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/04/25/linux%E4%B8%ADshell%E8%84%9A%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%90%8D%E5%A4%84%E7%90%86/">(linux中shell脚本中的文件名处理)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
+          bulk RNA-seq workflow and record
         
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/04/25/linux%E4%B8%ADshell%E8%84%9A%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%90%8D%E5%A4%84%E7%90%86/" data-id="clbc9menc00057wv4gihx7bka" data-title="(linux中shell脚本中的文件名处理)" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
+      </div>
+    </a>
+  
+  
+    <a href="/2022/04/25/linux%E4%B8%ADshell%E8%84%9A%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%90%8D%E5%A4%84%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">(linux中shell脚本中的文件名处理)</div>
+    </a>
+  
+</nav>
+
   
 </article>
-
-
-
-  
-    <article id="article-mine" class="h-entry article article-type-article" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/04/22/mine/" class="article-date">
-  <time class="dt-published" datetime="2022-04-22T07:56:58.000Z" itemprop="datePublished">2022-04-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E4%B8%AA%E4%BA%BA%E9%9A%8F%E7%AC%94/">个人随笔</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/04/22/mine/">the first blog of mine)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="写在前面，关于本博客建立的起因、过程以及将来计划"><a href="#写在前面，关于本博客建立的起因、过程以及将来计划" class="headerlink" title="写在前面，关于本博客建立的起因、过程以及将来计划"></a>写在前面，关于本博客建立的起因、过程以及将来计划</h3><h4 id="建立博客的动机"><a href="#建立博客的动机" class="headerlink" title="建立博客的动机"></a>建立博客的动机</h4><p>我的硕士课题是关于神经干细胞的研究，其中一大半涉及到了生物信息学主要是转录组的分析。当然这也是我有心下的选择。而近几年的疫情尤其是上海最近的疫情，使得我须向此方向重重发力。其实在大概一年前就开始了笼统的RNA-seq学习，但没有养成类似湿实验的实验记录习惯，导致学习不牢固，很多东西或者工具过一会就忘记了，待到用时又得回过头在学一遍，费时费力，事倍功半。</p>
-<p>在此背景下，便萌生了记录自己课题学习过程的想法。但此类记录涉及许多链接和代码，常用的OneNote不太适用，便需要寻找适用的记录平台。整好在学习过程中看到了别人个人博客的技术贴分享，觉得不错，便也打算建立自己的个人博客。以上就是动机来源了。</p>
-<h3 id="建立博客的过程"><a href="#建立博客的过程" class="headerlink" title="建立博客的过程"></a>建立博客的过程</h3><h4 id="大体流程"><a href="#大体流程" class="headerlink" title="大体流程"></a>大体流程</h4><p>自我走了一遍的经验来看，整个流程可以分为基于nodejs搭建的hexo博客框架，框架搭好后就是页面配置（configuration），这一步大部分都是套别人做好的主题（theme），类似手机的主题壁纸。到这里基本上就可以完成一个写作记录的闭环了。只不过这个闭环是不与网络连接的，要在互联网上留存，就要做成个人网以供别人访问。这里有两种方式，一种免费的是利用<code>GitHub Pages</code>创建仓库(<strong>repository</strong>)；另一种就是花钱买一个服务器将网站上部署到上面去，当然其中也需要Git的安装部署。除此之外，还需要给你的网站买一个域名。这样个人的博客网站就部署完成了，当然其中的流程也挺长的。</p>
-<h4 id="博客框架搭建"><a href="#博客框架搭建" class="headerlink" title="博客框架搭建"></a>博客框架搭建</h4><h4 id="页面配置"><a href="#页面配置" class="headerlink" title="页面配置"></a>页面配置</h4><h4 id="个人网站部署"><a href="#个人网站部署" class="headerlink" title="个人网站部署"></a>个人网站部署</h4><h3 id="将来的计划"><a href="#将来的计划" class="headerlink" title="将来的计划"></a>将来的计划</h3><p>一开始建立这个博客的初衷就是为了记录课题研究中生信分析的过程，同时达到温故知新的效果。但一旦给它贴上了技术经验的标签。那范围自然而然的扩大了。该博客还是围绕技术、经验、专业分享记录自己广泛学习道路上的经历。目前计划的栏目有以下几类：</p>
-<ul>
-<li>生信学习<ul>
-<li>RNA-seq</li>
-<li>生物数据库基础</li>
-<li>文献解读</li>
-</ul>
-</li>
-<li>泛计算机技术学习<ul>
-<li>软件的使用</li>
-<li>快捷化办公实现</li>
-<li>编程学习</li>
-</ul>
-</li>
-<li>视觉媒体影像<ul>
-<li>微单摄影</li>
-<li>后期修图</li>
-<li>视频剪辑</li>
-<li>影像理论</li>
-</ul>
-</li>
-<li>阅读习得<ul>
-<li>中国历史</li>
-<li>人文社会</li>
-<li>文学小说</li>
-<li>文学积累</li>
-</ul>
-</li>
-<li>个人随笔<br>以上就是结合本人专业以及兴趣展开的记录计划，当然这里面各个方面都需要投入大量精力才能取得一定成果。所以我也仅仅是基于学习过程中涉及的方面，并且肯定是大量的参考他人的分享，不可谓不是拾人牙慧了。当然，虽如此，也能促使我不断学习进步，这才是我的目的。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/04/22/mine/" data-id="clbc9menb00047wv47vnr4mus" data-title="the first blog of mine)" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A5%94%E5%AD%90/" rel="tag">楔子</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
 </section>

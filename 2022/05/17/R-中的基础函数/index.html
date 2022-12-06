@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>R 中的基础函数 | biolilsheep&#39;s travel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="R中的基础函数因为我的学习是以课题为轴进行学习的，相应的R虽有系统的粗学过，但只有粗略印象。因此开这个帖子记录我学习过程中所遇到的零散的R基础函数。而关于专门的功能实现，会开转贴进行记录。 0 paste&#x2F;paste0 参考连接r语言中paste函数_R中的paste（）函数-简要指南官方文档Rdocumentation(更好阅读但R版本止于3.6.2)  说明paste(): Take">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R 中的基础函数">
+<meta property="og:url" content="http://example.com/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="biolilsheep&#39;s travel">
+<meta property="og:description" content="R中的基础函数因为我的学习是以课题为轴进行学习的，相应的R虽有系统的粗学过，但只有粗略印象。因此开这个帖子记录我学习过程中所遇到的零散的R基础函数。而关于专门的功能实现，会开转贴进行记录。 0 paste&#x2F;paste0 参考连接r语言中paste函数_R中的paste（）函数-简要指南官方文档Rdocumentation(更好阅读但R版本止于3.6.2)  说明paste(): Take">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-17T02:23:38.000Z">
+<meta property="article:modified_time" content="2022-06-01T06:35:20.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="biolilsheep's travel" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">biolilsheep&#39;s travel</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-R-中的基础函数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2022-05-17T02:23:38.000Z" itemprop="datePublished">2022-05-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      R 中的基础函数
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="R中的基础函数"><a href="#R中的基础函数" class="headerlink" title="R中的基础函数"></a>R中的基础函数</h3><p>因为我的学习是以课题为轴进行学习的，相应的R虽有系统的粗学过，但只有粗略印象。<br>因此开这个帖子记录我学习过程中所遇到的零散的R基础函数。而关于专门的功能实现，会开转贴进行记录。</p>
+<h4 id="0-paste-x2F-paste0"><a href="#0-paste-x2F-paste0" class="headerlink" title="0 paste&#x2F;paste0"></a>0 paste&#x2F;paste0</h4><ul>
+<li><p>参考连接<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/cunchi4221/article/details/107470963">r语言中paste函数_R中的paste（）函数-简要指南</a><br><a target="_blank" rel="noopener" href="https://search.r-project.org/R/refmans/base/html/paste.html">官方文档</a><br><a target="_blank" rel="noopener" href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/paste">Rdocumentation(更好阅读但R版本止于3.6.2)</a></p>
+</li>
+<li><p>说明<br><strong>paste()</strong>: Takes multiple elements from the multiple vectors and concatenates them into a single element.<br>__paste()__：从多个向量中获取多个元素，并将它们连接为一个元素<br><strong>paste0()</strong>: The paste0() function has space as its default separator and limits your opportunities in the output as well.<br>__paste0()__： paste0（）函数使用空格作为其默认分隔符。</p>
+</li>
+<li><p>语法</p>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">paste<span class="punctuation">(</span>x<span class="punctuation">,</span>sep<span class="operator">=</span><span class="string">&quot; &quot;</span><span class="punctuation">,</span>collapse<span class="operator">=</span><span class="literal">NULL</span><span class="punctuation">)</span></span><br><span class="line">paste0<span class="punctuation">(</span>x<span class="punctuation">,</span>collapse<span class="operator">=</span><span class="literal">NULL</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>x &#x3D; vector having values.<br>x &#x3D; 具有值的向量。</p>
+<p>sep &#x3D; separator symbols that can be used to separate the elements.<br>sep &#x3D;可用于分隔元素的分隔符。paste中默认为空格，paste0中为空字符，sep &#x3D;””</p>
+<p>collapse &#x3D; It gives a value to collapse.<br>The separator will deal with the values which are to be placed in between the set of elements and the collapse argument will make use of specific value to concatenate the elements into single -string.</p>
+<p><strong>总结， sep处理将要放置在元素集之间的值，而collapse将使用特定值将元素连接为单个字符串。</strong></p>
+<h4 id="1-with-x2F-within-x2F-transform"><a href="#1-with-x2F-within-x2F-transform" class="headerlink" title="1 with&#x2F;within&#x2F;transform"></a>1 with&#x2F;within&#x2F;transform</h4><ul>
+<li><p>参考链接<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25847796">【R语言】：transform函数与with&#x2F;within函数</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/ZY_Jack/article/details/103166058">R 中的with() 函数和 by()函数 的简单使用</a><br><a target="_blank" rel="noopener" href="https://search.r-project.org/R/refmans/base/html/with.html">官方文档 with&#x2F;within</a><br><a target="_blank" rel="noopener" href="https://search.r-project.org/R/refmans/base/html/transform.html">官方文档 transform</a></p>
+</li>
+<li><p>with</p>
+<ul>
+<li>说明</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" data-id="clbc9men800017wv474q8f2g4" data-title="R 中的基础函数" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/12/01/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/05/15/bulk-RNA-seq-workflow-and-record/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">bulk RNA-seq workflow and record</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%AA%E4%BA%BA%E9%9A%8F%E7%AC%94/">个人随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A5%94%E5%AD%90/" rel="tag">楔子</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a> <a href="/tags/%E6%A5%94%E5%AD%90/" style="font-size: 10px;">楔子</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/06/a-test-of-new/">a test of new</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/01/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/">R 中的基础函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/15/bulk-RNA-seq-workflow-and-record/">bulk RNA-seq workflow and record</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/06/DEseq2%E5%8C%85%E4%BD%BF%E7%94%A8/">(DEseq2包使用)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
