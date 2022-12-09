@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"biolilsheep.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="写在前面，关于本博客建立的起因、过程以及将来计划建立博客的动机我的硕士课题是关于神经干细胞的研究，其中一大半涉及到了生物信息学主要是转录组的分析。当然这也是我有心下的选择。而近几年的疫情尤其是上海最近的疫情，使得我须向此方向重重发力。其实在大概一年前就开始了笼统的RNA-seq学习，但没有养成类似湿实验的实验记录习惯，导致学习不牢固，很多东西或者工具过一会就忘记了，待到用时又得回过头在学一遍，费时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="the first blog of mine)">
+<meta property="og:url" content="http://biolilsheep.com/2022/04/22/mine/index.html">
+<meta property="og:site_name" content="A extension compution learning travel based of bioinformatic of bio lilsheep!">
+<meta property="og:description" content="写在前面，关于本博客建立的起因、过程以及将来计划建立博客的动机我的硕士课题是关于神经干细胞的研究，其中一大半涉及到了生物信息学主要是转录组的分析。当然这也是我有心下的选择。而近几年的疫情尤其是上海最近的疫情，使得我须向此方向重重发力。其实在大概一年前就开始了笼统的RNA-seq学习，但没有养成类似湿实验的实验记录习惯，导致学习不牢固，很多东西或者工具过一会就忘记了，待到用时又得回过头在学一遍，费时">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-22T07:56:58.000Z">
+<meta property="article:modified_time" content="2022-04-25T15:22:52.000Z">
+<meta property="article:author" content="qingyi">
+<meta property="article:tag" content="博客搭建">
+<meta property="article:tag" content="楔子">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://biolilsheep.com/2022/04/22/mine/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>the first blog of mine) | A extension compution learning travel based of bioinformatic of bio lilsheep!</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">A extension compution learning travel based of bioinformatic of bio lilsheep!</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description"> </p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://biolilsheep.com/2022/04/22/mine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qingyi">
+      <meta itemprop="description" content=" ">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A extension compution learning travel based of bioinformatic of bio lilsheep!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          the first blog of mine)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-22 15:56:58" itemprop="dateCreated datePublished" datetime="2022-04-22T15:56:58+08:00">2022-04-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-25 23:22:52" itemprop="dateModified" datetime="2022-04-25T23:22:52+08:00">2022-04-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">个人随笔</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="写在前面，关于本博客建立的起因、过程以及将来计划"><a href="#写在前面，关于本博客建立的起因、过程以及将来计划" class="headerlink" title="写在前面，关于本博客建立的起因、过程以及将来计划"></a>写在前面，关于本博客建立的起因、过程以及将来计划</h3><h4 id="建立博客的动机"><a href="#建立博客的动机" class="headerlink" title="建立博客的动机"></a>建立博客的动机</h4><p>我的硕士课题是关于神经干细胞的研究，其中一大半涉及到了生物信息学主要是转录组的分析。当然这也是我有心下的选择。而近几年的疫情尤其是上海最近的疫情，使得我须向此方向重重发力。其实在大概一年前就开始了笼统的RNA-seq学习，但没有养成类似湿实验的实验记录习惯，导致学习不牢固，很多东西或者工具过一会就忘记了，待到用时又得回过头在学一遍，费时费力，事倍功半。</p>
+<p>在此背景下，便萌生了记录自己课题学习过程的想法。但此类记录涉及许多链接和代码，常用的OneNote不太适用，便需要寻找适用的记录平台。整好在学习过程中看到了别人个人博客的技术贴分享，觉得不错，便也打算建立自己的个人博客。以上就是动机来源了。</p>
+<h3 id="建立博客的过程"><a href="#建立博客的过程" class="headerlink" title="建立博客的过程"></a>建立博客的过程</h3><h4 id="大体流程"><a href="#大体流程" class="headerlink" title="大体流程"></a>大体流程</h4><p>自我走了一遍的经验来看，整个流程可以分为基于nodejs搭建的hexo博客框架，框架搭好后就是页面配置（configuration），这一步大部分都是套别人做好的主题（theme），类似手机的主题壁纸。到这里基本上就可以完成一个写作记录的闭环了。只不过这个闭环是不与网络连接的，要在互联网上留存，就要做成个人网以供别人访问。这里有两种方式，一种免费的是利用<code>GitHub Pages</code>创建仓库(<strong>repository</strong>)；另一种就是花钱买一个服务器将网站上部署到上面去，当然其中也需要Git的安装部署。除此之外，还需要给你的网站买一个域名。这样个人的博客网站就部署完成了，当然其中的流程也挺长的。</p>
+<h4 id="博客框架搭建"><a href="#博客框架搭建" class="headerlink" title="博客框架搭建"></a>博客框架搭建</h4><h4 id="页面配置"><a href="#页面配置" class="headerlink" title="页面配置"></a>页面配置</h4><h4 id="个人网站部署"><a href="#个人网站部署" class="headerlink" title="个人网站部署"></a>个人网站部署</h4><h3 id="将来的计划"><a href="#将来的计划" class="headerlink" title="将来的计划"></a>将来的计划</h3><p>一开始建立这个博客的初衷就是为了记录课题研究中生信分析的过程，同时达到温故知新的效果。但一旦给它贴上了技术经验的标签。那范围自然而然的扩大了。该博客还是围绕技术、经验、专业分享记录自己广泛学习道路上的经历。目前计划的栏目有以下几类：</p>
+<ul>
+<li>生信学习<ul>
+<li>RNA-seq</li>
+<li>生物数据库基础</li>
+<li>文献解读</li>
+</ul>
+</li>
+<li>泛计算机技术学习<ul>
+<li>软件的使用</li>
+<li>快捷化办公实现</li>
+<li>编程学习</li>
+</ul>
+</li>
+<li>视觉媒体影像<ul>
+<li>微单摄影</li>
+<li>后期修图</li>
+<li>视频剪辑</li>
+<li>影像理论</li>
+</ul>
+</li>
+<li>阅读习得<ul>
+<li>中国历史</li>
+<li>人文社会</li>
+<li>文学小说</li>
+<li>文学积累</li>
+</ul>
+</li>
+<li>个人随笔<br>以上就是结合本人专业以及兴趣展开的记录计划，当然这里面各个方面都需要投入大量精力才能取得一定成果。所以我也仅仅是基于学习过程中涉及的方面，并且肯定是大量的参考他人的分享，不可谓不是拾人牙慧了。当然，虽如此，也能促使我不断学习进步，这才是我的目的。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag"># 博客搭建</a>
+              <a href="/tags/%E6%A5%94%E5%AD%90/" rel="tag"># 楔子</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/25/linux%E4%B8%ADshell%E8%84%9A%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%90%8D%E5%A4%84%E7%90%86/" rel="next" title="(linux中shell脚本中的文件名处理)">
+      (linux中shell脚本中的文件名处理) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2%EF%BC%8C%E5%85%B3%E4%BA%8E%E6%9C%AC%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%8B%E7%9A%84%E8%B5%B7%E5%9B%A0%E3%80%81%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%B0%86%E6%9D%A5%E8%AE%A1%E5%88%92"><span class="nav-number">1.</span> <span class="nav-text">写在前面，关于本博客建立的起因、过程以及将来计划</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%8A%A8%E6%9C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">建立博客的动机</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">建立博客的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">大体流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA"><span class="nav-number">2.2.</span> <span class="nav-text">博客框架搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">页面配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2"><span class="nav-number">2.4.</span> <span class="nav-text">个人网站部署</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E6%9D%A5%E7%9A%84%E8%AE%A1%E5%88%92"><span class="nav-number">3.</span> <span class="nav-text">将来的计划</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">qingyi</p>
+  <div class="site-description" itemprop="description"> </div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qingyi</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

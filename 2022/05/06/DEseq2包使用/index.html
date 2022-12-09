@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"biolilsheep.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="DEseq2 包使用R中 DEseq2包是用来进行差异表达的一个主流的工具，下面是本人使用过程中的一些心得与笔记 1 基础应用——以结果为导向的快捷使用前期我花了大量时间去学习DEseq2，从最基础的原理到各个函数参数的使用与意义。这虽然让我更了解了其使用方法，但因为DEseq2的结果对我的分析来说只是中间的一个过渡，因此精力反而显得浪费。为此，我先总结一个快速的使用方法。 代码 12345678">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(DEseq2包使用)">
+<meta property="og:url" content="http://biolilsheep.com/2022/05/06/DEseq2%E5%8C%85%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="A extension compution learning travel based of bioinformatic of bio lilsheep!">
+<meta property="og:description" content="DEseq2 包使用R中 DEseq2包是用来进行差异表达的一个主流的工具，下面是本人使用过程中的一些心得与笔记 1 基础应用——以结果为导向的快捷使用前期我花了大量时间去学习DEseq2，从最基础的原理到各个函数参数的使用与意义。这虽然让我更了解了其使用方法，但因为DEseq2的结果对我的分析来说只是中间的一个过渡，因此精力反而显得浪费。为此，我先总结一个快速的使用方法。 代码 12345678">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-06T03:12:22.000Z">
+<meta property="article:modified_time" content="2022-06-01T06:35:20.000Z">
+<meta property="article:author" content="qingyi">
+<meta property="article:tag" content="bioinformatic">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://biolilsheep.com/2022/05/06/DEseq2%E5%8C%85%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>(DEseq2包使用) | A extension compution learning travel based of bioinformatic of bio lilsheep!</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">A extension compution learning travel based of bioinformatic of bio lilsheep!</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description"> </p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://biolilsheep.com/2022/05/06/DEseq2%E5%8C%85%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qingyi">
+      <meta itemprop="description" content=" ">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A extension compution learning travel based of bioinformatic of bio lilsheep!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          (DEseq2包使用)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-06 11:12:22" itemprop="dateCreated datePublished" datetime="2022-05-06T11:12:22+08:00">2022-05-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-01 14:35:20" itemprop="dateModified" datetime="2022-06-01T14:35:20+08:00">2022-06-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="DEseq2-包使用"><a href="#DEseq2-包使用" class="headerlink" title="DEseq2 包使用"></a>DEseq2 包使用</h3><p>R中 DEseq2包是用来进行差异表达的一个主流的工具，下面是本人使用过程中的一些心得与笔记</p>
+<h4 id="1-基础应用——以结果为导向的快捷使用"><a href="#1-基础应用——以结果为导向的快捷使用" class="headerlink" title="1 基础应用——以结果为导向的快捷使用"></a>1 基础应用——以结果为导向的快捷使用</h4><p>前期我花了大量时间去学习DEseq2，从最基础的原理到各个函数参数的使用与意义。这虽然让我更了解了其使用方法，但因为DEseq2的结果对我的分析来说只是中间的一个过渡，因此精力反而显得浪费。为此，我先总结一个快速的使用方法。</p>
+<p>代码</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install and load the relevant packages</span></span><br><span class="line">options<span class="punctuation">(</span><span class="string">&quot;repos&quot;</span> <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span>CRAN<span class="operator">=</span><span class="string">&quot;https://mirrors.tuna.tsinghua.edu.cn/CRAN/&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>BiocManager<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>DESeq2<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>biomaRt<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>curl<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>pheatmap<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>GEOquery<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>ggplot2<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># input the rawcount files to build the matrix</span></span><br><span class="line">ctx3 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-CTX_L4_150A50_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;ctx3&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">ctx2 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-CTX2_L4_346X46_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;ctx2&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">ctx1 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-CTX1_L3_343X43_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;ctx1&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">ge1 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-GE1_L3_344X44_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;ge1&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">ge2 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-GE2_L4_347X47_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;ge2&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">ge3 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-GE_L4_314X14_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;ge3&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">mid1 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-MID1_L4_351X51_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;mid1&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">mid2 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-MID2_L4_352X52_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;mid2&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">mid3 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-MID_L4_152A52_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;mid3&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">hid1 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-HID1_L3_345X45_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;hid1&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">hid2 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-HID2_L3_349X49_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;hid2&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">hid3 <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;E:/yaner xuenian/NSCPRO/downstream/E15_5-P3/P3-E15-5-HID_L4_153A53_sorted.count&quot;</span><span class="punctuation">,</span> sep<span class="operator">=</span><span class="string">&quot;\t&quot;</span><span class="punctuation">,</span> col.names <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;hid3&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">ctx <span class="operator">&lt;-</span> merge<span class="punctuation">(</span>merge<span class="punctuation">(</span>ctx1<span class="punctuation">,</span>ctx2<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>ctx3<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line">ge <span class="operator">&lt;-</span> merge<span class="punctuation">(</span>merge<span class="punctuation">(</span>ge1<span class="punctuation">,</span>ge2<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>ge3<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line">mid <span class="operator">&lt;-</span> merge<span class="punctuation">(</span>merge<span class="punctuation">(</span>mid1<span class="punctuation">,</span>mid2<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>mid3<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line">hid <span class="operator">&lt;-</span> merge<span class="punctuation">(</span>merge<span class="punctuation">(</span>hid1<span class="punctuation">,</span>hid2<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>hid3<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">rawcount<span class="operator">&lt;-</span>merge<span class="punctuation">(</span>merge<span class="punctuation">(</span>merge<span class="punctuation">(</span>ctx<span class="punctuation">,</span>ge<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>mid<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> hid<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line">rawcount <span class="operator">&lt;-</span>merge<span class="punctuation">(</span>ctx<span class="punctuation">,</span>ge<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line">rawcount_1 <span class="operator">&lt;-</span> rawcount<span class="punctuation">[</span><span class="operator">-</span><span class="built_in">c</span><span class="punctuation">(</span><span class="number">1</span><span class="operator">:</span><span class="number">5</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="punctuation">]</span></span><br><span class="line">ENSEMBL <span class="operator">&lt;-</span> gsub<span class="punctuation">(</span><span class="string">&quot;\\.\\d*&quot;</span><span class="punctuation">,</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span>rawcount_1<span class="operator">$</span>gene_id<span class="punctuation">)</span></span><br><span class="line">row.names<span class="punctuation">(</span>rawcount_1<span class="punctuation">)</span> <span class="operator">&lt;-</span>ENSEMBL</span><br><span class="line">rawcount_2 <span class="operator">&lt;-</span> rawcount_1<span class="punctuation">[</span><span class="punctuation">,</span><span class="operator">-</span><span class="number">1</span><span class="punctuation">]</span></span><br><span class="line">rawcount_3 <span class="operator">&lt;-</span> rawcount_2<span class="punctuation">[</span>apply<span class="punctuation">(</span>rawcount_2<span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">,</span> <span class="built_in">sum</span><span class="punctuation">)</span> <span class="operator">&gt;</span> <span class="number">1</span> <span class="punctuation">,</span> <span class="punctuation">]</span> <span class="comment">#remove the low express gene</span></span><br><span class="line">rawcount_log <span class="operator">&lt;-</span>log2<span class="punctuation">(</span>rawcount_3<span class="operator">+</span><span class="number">1</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#construct the coldata,3 bio replicates each group</span></span><br><span class="line">condition <span class="operator">&lt;-</span> factor<span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;ctx&quot;</span><span class="punctuation">,</span><span class="number">3</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;ge&quot;</span><span class="punctuation">,</span><span class="number">3</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;mid&quot;</span><span class="punctuation">,</span><span class="number">3</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;hid&quot;</span><span class="punctuation">,</span><span class="number">3</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">,</span>levels <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;ctx&quot;</span><span class="punctuation">,</span><span class="string">&quot;ge&quot;</span><span class="punctuation">,</span><span class="string">&quot;mid&quot;</span><span class="punctuation">,</span><span class="string">&quot;hid&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">batch <span class="operator">&lt;-</span> factor<span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;bat1&quot;</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;bat2&quot;</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;bat1&quot;</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;bat2&quot;</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;bat1&quot;</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;bat2&quot;</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;bat1&quot;</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;bat2&quot;</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="comment"># batch effect</span></span><br><span class="line">colData <span class="operator">&lt;-</span> data.frame<span class="punctuation">(</span>row.names <span class="operator">=</span> colnames<span class="punctuation">(</span>rawcount_3<span class="punctuation">)</span><span class="punctuation">,</span>condition<span class="punctuation">,</span>batch<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#remove the batch2 version</span></span><br><span class="line">ctx <span class="operator">&lt;-</span> merge<span class="punctuation">(</span>ctx1<span class="punctuation">,</span>ctx2<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line">ge <span class="operator">&lt;-</span> merge<span class="punctuation">(</span>ge1<span class="punctuation">,</span>ge2<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line">mid <span class="operator">&lt;-</span> merge<span class="punctuation">(</span>mid1<span class="punctuation">,</span>mid2<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line">hid <span class="operator">&lt;-</span> merge<span class="punctuation">(</span>hid1<span class="punctuation">,</span>hid2<span class="punctuation">,</span>by <span class="operator">=</span><span class="string">&quot;gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line">condition <span class="operator">&lt;-</span> factor<span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;ctx&quot;</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;ge&quot;</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;mid&quot;</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;hid&quot;</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">,</span>levels <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;ctx&quot;</span><span class="punctuation">,</span><span class="string">&quot;ge&quot;</span><span class="punctuation">,</span><span class="string">&quot;mid&quot;</span><span class="punctuation">,</span><span class="string">&quot;hid&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">condition <span class="operator">&lt;-</span> factor<span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;ctx&quot;</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">rep</span><span class="punctuation">(</span><span class="string">&quot;ge&quot;</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">,</span>levels <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;ctx&quot;</span><span class="punctuation">,</span><span class="string">&quot;ge&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">colData <span class="operator">&lt;-</span> data.frame<span class="punctuation">(</span>row.names <span class="operator">=</span> colnames<span class="punctuation">(</span>rawcount_3<span class="punctuation">)</span><span class="punctuation">,</span>condition<span class="punctuation">)</span></span><br><span class="line"><span class="comment">#start the DEG workflow</span></span><br><span class="line"><span class="comment">##construct the DESeqDataSet(dds) Object</span></span><br><span class="line"></span><br><span class="line">dds <span class="operator">&lt;-</span> DESeqDataSetFromMatrix<span class="punctuation">(</span>rawcount_3<span class="punctuation">,</span>colData<span class="punctuation">,</span>design <span class="operator">=</span> <span class="operator">~</span> condition<span class="punctuation">)</span></span><br><span class="line">dds<span class="operator">&lt;-</span> DESeq<span class="punctuation">(</span>dds<span class="punctuation">)</span></span><br><span class="line">dds</span><br><span class="line"></span><br><span class="line"><span class="comment">###PCA by rlog</span></span><br><span class="line">rld_plot <span class="operator">&lt;-</span> rlogTransformation<span class="punctuation">(</span>dds<span class="punctuation">)</span></span><br><span class="line">plotPCA<span class="punctuation">(</span>rld_plot<span class="punctuation">,</span>intgroup <span class="operator">=</span> <span class="punctuation">(</span><span class="string">&quot;condition&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">vstdata <span class="operator">&lt;-</span>vst<span class="punctuation">(</span>dds<span class="punctuation">,</span>blind <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span> </span><br><span class="line">plotPCA<span class="punctuation">(</span>vstdata<span class="punctuation">,</span>intgroup <span class="operator">=</span> <span class="punctuation">(</span><span class="string">&quot;condition&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="comment">#package function</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### sample to sample distance heatmap</span></span><br><span class="line">library<span class="punctuation">(</span>RColorBrewer<span class="punctuation">)</span></span><br><span class="line">sampleDist_vstdata <span class="operator">&lt;-</span>dist<span class="punctuation">(</span>t<span class="punctuation">(</span>assay<span class="punctuation">(</span>vstdata<span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="comment">#vst transformation</span></span><br><span class="line">sampleDist_vstdata_matrix <span class="operator">&lt;-</span> as.matrix<span class="punctuation">(</span>sampleDist_vstdata<span class="punctuation">)</span></span><br><span class="line">rownames<span class="punctuation">(</span>sampleDist_vstdata_matrix<span class="punctuation">)</span><span class="operator">&lt;-</span>paste<span class="punctuation">(</span>vstdata<span class="operator">$</span>condition<span class="punctuation">,</span>sep <span class="operator">=</span> <span class="string">&quot;-&quot;</span><span class="punctuation">)</span></span><br><span class="line">colnames<span class="punctuation">(</span>sampleDist_vstdata_matrix<span class="punctuation">)</span><span class="operator">&lt;-</span> <span class="literal">NULL</span></span><br><span class="line">colors<span class="operator">&lt;-</span> colorRampPalette<span class="punctuation">(</span>rev<span class="punctuation">(</span>brewer.pal<span class="punctuation">(</span><span class="number">9</span><span class="punctuation">,</span><span class="string">&quot;Blues&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">(</span><span class="number">255</span><span class="punctuation">)</span></span><br><span class="line">pheatmap<span class="punctuation">(</span>sampleDist_vstdata_matrix<span class="punctuation">,</span></span><br><span class="line">         clustering_distance_rows <span class="operator">=</span> sampleDist_vstdata<span class="punctuation">,</span></span><br><span class="line">         clustering_distance_cols <span class="operator">=</span> sampleDist_vstdata<span class="punctuation">,</span></span><br><span class="line">         col <span class="operator">=</span>colors<span class="punctuation">)</span></span><br><span class="line"><span class="comment">## the overview of the result</span></span><br><span class="line">res <span class="operator">&lt;-</span>results<span class="punctuation">(</span>dds<span class="punctuation">,</span>contrast <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;condition&quot;</span><span class="punctuation">,</span><span class="string">&quot;ctx&quot;</span><span class="punctuation">,</span><span class="string">&quot;ge&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="comment"># the contrast should be set in multigroup comparison</span></span><br><span class="line">res <span class="operator">=</span> res<span class="punctuation">[</span>order<span class="punctuation">(</span>res<span class="operator">$</span>pvalue<span class="punctuation">)</span><span class="punctuation">,</span><span class="punctuation">]</span></span><br><span class="line">head<span class="punctuation">(</span>res<span class="punctuation">)</span></span><br><span class="line">summary<span class="punctuation">(</span>res<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">table<span class="punctuation">(</span>res<span class="operator">$</span>padj <span class="operator">&lt;</span><span class="number">0.05</span><span class="punctuation">)</span> <span class="comment"># the distribution of the p-value</span></span><br><span class="line">res_data <span class="operator">&lt;-</span> as.data.frame<span class="punctuation">(</span>res<span class="punctuation">)</span></span><br><span class="line">res_data <span class="operator">&lt;-</span> na.omit<span class="punctuation">(</span>res_data<span class="punctuation">)</span></span><br><span class="line">write.csv<span class="punctuation">(</span>res_data<span class="punctuation">,</span>file <span class="operator">=</span> <span class="string">&quot;all_results_E15_P3_mid_vs_hid.csv&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## vocanal plot of the DEG</span></span><br><span class="line">logFC_cutoff <span class="operator">&lt;-</span> with<span class="punctuation">(</span>res_data<span class="punctuation">,</span> mean<span class="punctuation">(</span><span class="built_in">abs</span><span class="punctuation">(</span>log2FoldChange<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> <span class="number">2</span><span class="operator">*</span> sd<span class="punctuation">(</span>log2FoldChange<span class="punctuation">)</span><span class="punctuation">)</span><span class="comment"># logFC_cutoff</span></span><br><span class="line">res_data<span class="operator">$</span>change <span class="operator">&lt;-</span> as.factor<span class="punctuation">(</span>ifelse<span class="punctuation">(</span>res_data<span class="operator">$</span>padj <span class="operator">&lt;</span><span class="number">0.05</span> <span class="operator">&amp;</span>   <span class="built_in">abs</span><span class="punctuation">(</span>res_data<span class="operator">$</span>log2FoldChange<span class="punctuation">)</span> <span class="operator">&gt;</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">                                    ifelse<span class="punctuation">(</span>res_data<span class="operator">$</span>log2FoldChange <span class="operator">&gt;</span> <span class="number">1</span><span class="punctuation">,</span><span class="string">&#x27;up&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;down&#x27;</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="string">&#x27;not&#x27;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">pig_title <span class="operator">&lt;-</span> paste0<span class="punctuation">(</span><span class="string">&#x27;cut_off for logFC is &#x27;</span><span class="punctuation">,</span><span class="built_in">round</span><span class="punctuation">(</span><span class="number">1</span><span class="punctuation">,</span><span class="number">3</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="string">&#x27;\nThe number of up gene is&#x27;</span><span class="punctuation">,</span></span><br><span class="line">                    nrow<span class="punctuation">(</span>res_data<span class="punctuation">[</span>res_data<span class="operator">$</span>change <span class="operator">==</span> <span class="string">&#x27;up&#x27;</span><span class="punctuation">,</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="string">&#x27;\nThe number of down gene is&#x27;</span><span class="punctuation">,</span> </span><br><span class="line">                    nrow<span class="punctuation">(</span>res_data<span class="punctuation">[</span>res_data<span class="operator">$</span>change <span class="operator">==</span> <span class="string">&#x27;down&#x27;</span><span class="punctuation">,</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">g <span class="operator">=</span> ggplot<span class="punctuation">(</span>data <span class="operator">=</span> res_data<span class="punctuation">,</span></span><br><span class="line">           aes<span class="punctuation">(</span>x<span class="operator">=</span> log2FoldChange<span class="punctuation">,</span>y<span class="operator">=</span> <span class="operator">-</span>log10<span class="punctuation">(</span>padj<span class="punctuation">)</span><span class="punctuation">,</span> color <span class="operator">=</span> change<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> </span><br><span class="line">  geom_point<span class="punctuation">(</span>alpha <span class="operator">=</span><span class="number">0.4</span> <span class="punctuation">,</span>size <span class="operator">=</span><span class="number">1.75</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  theme_set<span class="punctuation">(</span>theme_set<span class="punctuation">(</span>theme_bw<span class="punctuation">(</span>base_size <span class="operator">=</span> <span class="number">20</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> </span><br><span class="line">  xlab<span class="punctuation">(</span><span class="string">&quot;log2 fold change&quot;</span><span class="punctuation">)</span> <span class="operator">+</span>ylab<span class="punctuation">(</span><span class="string">&quot;-log10 padj&quot;</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  <span class="comment">#ggtitle(pig_title) + </span></span><br><span class="line">  ggtitle<span class="punctuation">(</span><span class="string">&#x27;E15_P3 mid vs hid&#x27;</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme<span class="punctuation">(</span>plot.title <span class="operator">=</span> element_text<span class="punctuation">(</span>hjust <span class="operator">=</span> <span class="number">0.5</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  geom_hline<span class="punctuation">(</span>yintercept <span class="operator">=</span> <span class="operator">-</span>log10<span class="punctuation">(</span><span class="number">0.05</span><span class="punctuation">)</span><span class="punctuation">,</span> lty <span class="operator">=</span> <span class="number">3</span><span class="punctuation">,</span> color <span class="operator">=</span> <span class="string">&#x27;black&#x27;</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  geom_vline<span class="punctuation">(</span>xintercept <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="operator">-</span><span class="number">1</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span> lty <span class="operator">=</span> <span class="number">3</span><span class="punctuation">,</span> color <span class="operator">=</span> <span class="string">&#x27;black&#x27;</span><span class="punctuation">)</span> <span class="operator">+</span>  <span class="comment">#添加阈值线</span></span><br><span class="line">  scale_color_manual<span class="punctuation">(</span>values <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&#x27;blue&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;black&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;red&#x27;</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="comment">##corresponding to the levels(res_data$change)</span></span><br><span class="line">print<span class="punctuation">(</span>g<span class="punctuation">)</span></span><br><span class="line">ggsave<span class="punctuation">(</span>g<span class="punctuation">,</span>filename <span class="operator">=</span> <span class="string">&#x27;volcano_E15_P3_mid_vs_hid.png&#x27;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## extract the DEGs for the further analysis</span></span><br><span class="line">diff_gene <span class="operator">&lt;-</span> subset<span class="punctuation">(</span>res<span class="punctuation">,</span>padj <span class="operator">&lt;</span><span class="number">0.05</span> <span class="operator">&amp;</span> <span class="built_in">abs</span> <span class="punctuation">(</span>log2FoldChange<span class="punctuation">)</span> <span class="operator">&gt;</span><span class="number">1</span><span class="punctuation">)</span></span><br><span class="line"><span class="built_in">dim</span><span class="punctuation">(</span>diff_gene<span class="punctuation">)</span></span><br><span class="line">summary<span class="punctuation">(</span>diff_gene<span class="punctuation">)</span></span><br><span class="line">diff_gene_data <span class="operator">&lt;-</span> as.data.frame<span class="punctuation">(</span>diff_gene<span class="punctuation">)</span></span><br><span class="line">write.csv<span class="punctuation">(</span>diff_gene<span class="punctuation">,</span> file <span class="operator">=</span> <span class="string">&quot;E15_P3_DEG_ctx_vs_hid.csv&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## heatmap of the DEG</span></span><br><span class="line">choose_gene <span class="operator">=</span> head<span class="punctuation">(</span>rownames<span class="punctuation">(</span>diff_gene<span class="punctuation">)</span><span class="punctuation">,</span><span class="number">182</span><span class="punctuation">)</span></span><br><span class="line">choose_matrix <span class="operator">&lt;-</span>rawcount_log<span class="punctuation">[</span>choose_gene<span class="punctuation">,</span><span class="punctuation">]</span> </span><br><span class="line">choose_matrix <span class="operator">&lt;-</span>t<span class="punctuation">(</span>scale<span class="punctuation">(</span>t<span class="punctuation">(</span>choose_matrix<span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">pheatmap<span class="punctuation">(</span>choose_matrix<span class="punctuation">,</span>filename <span class="operator">=</span> <span class="string">&#x27;E15_P3_DEG_mid_vs_hid.png&#x27;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## get annotation of the genes(convert the ensemble_id to gene_symbol)</span></span><br><span class="line">mart <span class="operator">&lt;-</span>useDataset<span class="punctuation">(</span><span class="string">&quot;mmusculus_gene_ensembl&quot;</span><span class="punctuation">,</span> useMart<span class="punctuation">(</span><span class="string">&quot;ensembl&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">my_ensembl_gene_id <span class="operator">&lt;-</span>row.names<span class="punctuation">(</span>diff_gene_data<span class="punctuation">)</span></span><br><span class="line">mms_symbols <span class="operator">&lt;-</span> getBM<span class="punctuation">(</span><span class="built_in">attributes</span> <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;ensembl_gene_id&quot;</span><span class="punctuation">,</span><span class="string">&quot;external_gene_name&quot;</span><span class="punctuation">,</span><span class="string">&quot;chromosome_name&quot;</span><span class="punctuation">,</span><span class="string">&quot;description&quot;</span><span class="punctuation">,</span><span class="string">&quot;band&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">                     filters <span class="operator">=</span> <span class="string">&quot;ensembl_gene_id&quot;</span><span class="punctuation">,</span> values <span class="operator">=</span> my_ensembl_gene_id<span class="punctuation">,</span> mart <span class="operator">=</span> mart<span class="punctuation">)</span></span><br><span class="line"><span class="comment">## merge the mms_symbols and the diff_gene</span></span><br><span class="line">diff_gene_id <span class="operator">&lt;-</span> cbind<span class="punctuation">(</span>rownames<span class="punctuation">(</span>diff_gene_data<span class="punctuation">)</span><span class="punctuation">,</span>diff_gene_data<span class="punctuation">)</span></span><br><span class="line">colnames<span class="punctuation">(</span>diff_gene_id<span class="punctuation">)</span><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;ensembl_gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line">diff_gene_ano <span class="operator">&lt;-</span> merge<span class="punctuation">(</span>diff_gene_id<span class="punctuation">,</span>mms_symbols<span class="punctuation">,</span>by <span class="operator">=</span> <span class="string">&quot;ensembl_gene_id&quot;</span><span class="punctuation">)</span></span><br><span class="line">write.csv<span class="punctuation">(</span>diff_gene_ano<span class="punctuation">,</span> file <span class="operator">=</span> <span class="string">&quot;DEG_all_ge_vs_mid.csv&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># vennplot </span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/25/linux%E4%B8%ADshell%E8%84%9A%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%90%8D%E5%A4%84%E7%90%86/" rel="prev" title="(linux中shell脚本中的文件名处理)">
+      <i class="fa fa-chevron-left"></i> (linux中shell脚本中的文件名处理)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/15/bulk-RNA-seq-workflow-and-record/" rel="next" title="bulk RNA-seq workflow and record">
+      bulk RNA-seq workflow and record <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DEseq2-%E5%8C%85%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">DEseq2 包使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E4%BB%A5%E7%BB%93%E6%9E%9C%E4%B8%BA%E5%AF%BC%E5%90%91%E7%9A%84%E5%BF%AB%E6%8D%B7%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">1 基础应用——以结果为导向的快捷使用</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">qingyi</p>
+  <div class="site-description" itemprop="description"> </div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qingyi</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

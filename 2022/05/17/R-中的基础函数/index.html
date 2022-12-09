@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"biolilsheep.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="R中的基础函数因为我的学习是以课题为轴进行学习的，相应的R虽有系统的粗学过，但只有粗略印象。因此开这个帖子记录我学习过程中所遇到的零散的R基础函数。而关于专门的功能实现，会开转贴进行记录。 0 paste&#x2F;paste0 参考连接r语言中paste函数_R中的paste（）函数-简要指南官方文档Rdocumentation(更好阅读但R版本止于3.6.2)  说明paste(): Take">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R 中的基础函数">
+<meta property="og:url" content="http://biolilsheep.com/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="A extension compution learning travel based of bioinformatic of bio lilsheep!">
+<meta property="og:description" content="R中的基础函数因为我的学习是以课题为轴进行学习的，相应的R虽有系统的粗学过，但只有粗略印象。因此开这个帖子记录我学习过程中所遇到的零散的R基础函数。而关于专门的功能实现，会开转贴进行记录。 0 paste&#x2F;paste0 参考连接r语言中paste函数_R中的paste（）函数-简要指南官方文档Rdocumentation(更好阅读但R版本止于3.6.2)  说明paste(): Take">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-17T02:23:38.000Z">
+<meta property="article:modified_time" content="2022-06-01T06:35:20.000Z">
+<meta property="article:author" content="qingyi">
+<meta property="article:tag" content="bioinformatic">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://biolilsheep.com/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>R 中的基础函数 | A extension compution learning travel based of bioinformatic of bio lilsheep!</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">A extension compution learning travel based of bioinformatic of bio lilsheep!</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description"> </p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://biolilsheep.com/2022/05/17/R-%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qingyi">
+      <meta itemprop="description" content=" ">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A extension compution learning travel based of bioinformatic of bio lilsheep!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          R 中的基础函数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-17 10:23:38" itemprop="dateCreated datePublished" datetime="2022-05-17T10:23:38+08:00">2022-05-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-01 14:35:20" itemprop="dateModified" datetime="2022-06-01T14:35:20+08:00">2022-06-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="R中的基础函数"><a href="#R中的基础函数" class="headerlink" title="R中的基础函数"></a>R中的基础函数</h3><p>因为我的学习是以课题为轴进行学习的，相应的R虽有系统的粗学过，但只有粗略印象。<br>因此开这个帖子记录我学习过程中所遇到的零散的R基础函数。而关于专门的功能实现，会开转贴进行记录。</p>
+<h4 id="0-paste-x2F-paste0"><a href="#0-paste-x2F-paste0" class="headerlink" title="0 paste&#x2F;paste0"></a>0 paste&#x2F;paste0</h4><ul>
+<li><p>参考连接<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/cunchi4221/article/details/107470963">r语言中paste函数_R中的paste（）函数-简要指南</a><br><a target="_blank" rel="noopener" href="https://search.r-project.org/R/refmans/base/html/paste.html">官方文档</a><br><a target="_blank" rel="noopener" href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/paste">Rdocumentation(更好阅读但R版本止于3.6.2)</a></p>
+</li>
+<li><p>说明<br><strong>paste()</strong>: Takes multiple elements from the multiple vectors and concatenates them into a single element.<br>__paste()__：从多个向量中获取多个元素，并将它们连接为一个元素<br><strong>paste0()</strong>: The paste0() function has space as its default separator and limits your opportunities in the output as well.<br>__paste0()__： paste0（）函数使用空格作为其默认分隔符。</p>
+</li>
+<li><p>语法</p>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">paste<span class="punctuation">(</span>x<span class="punctuation">,</span>sep<span class="operator">=</span><span class="string">&quot; &quot;</span><span class="punctuation">,</span>collapse<span class="operator">=</span><span class="literal">NULL</span><span class="punctuation">)</span></span><br><span class="line">paste0<span class="punctuation">(</span>x<span class="punctuation">,</span>collapse<span class="operator">=</span><span class="literal">NULL</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>x &#x3D; vector having values.<br>x &#x3D; 具有值的向量。</p>
+<p>sep &#x3D; separator symbols that can be used to separate the elements.<br>sep &#x3D;可用于分隔元素的分隔符。paste中默认为空格，paste0中为空字符，sep &#x3D;””</p>
+<p>collapse &#x3D; It gives a value to collapse.<br>The separator will deal with the values which are to be placed in between the set of elements and the collapse argument will make use of specific value to concatenate the elements into single -string.</p>
+<p><strong>总结， sep处理将要放置在元素集之间的值，而collapse将使用特定值将元素连接为单个字符串。</strong></p>
+<h4 id="1-with-x2F-within-x2F-transform"><a href="#1-with-x2F-within-x2F-transform" class="headerlink" title="1 with&#x2F;within&#x2F;transform"></a>1 with&#x2F;within&#x2F;transform</h4><ul>
+<li><p>参考链接<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25847796">【R语言】：transform函数与with&#x2F;within函数</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/ZY_Jack/article/details/103166058">R 中的with() 函数和 by()函数 的简单使用</a><br><a target="_blank" rel="noopener" href="https://search.r-project.org/R/refmans/base/html/with.html">官方文档 with&#x2F;within</a><br><a target="_blank" rel="noopener" href="https://search.r-project.org/R/refmans/base/html/transform.html">官方文档 transform</a></p>
+</li>
+<li><p>with</p>
+<ul>
+<li>说明</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/15/bulk-RNA-seq-workflow-and-record/" rel="prev" title="bulk RNA-seq workflow and record">
+      <i class="fa fa-chevron-left"></i> bulk RNA-seq workflow and record
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/01/hello-world/" rel="next" title="Hello World">
+      Hello World <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#R%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">R中的基础函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-paste-x2F-paste0"><span class="nav-number">1.1.</span> <span class="nav-text">0 paste&#x2F;paste0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-with-x2F-within-x2F-transform"><span class="nav-number">1.2.</span> <span class="nav-text">1 with&#x2F;within&#x2F;transform</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">qingyi</p>
+  <div class="site-description" itemprop="description"> </div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qingyi</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
